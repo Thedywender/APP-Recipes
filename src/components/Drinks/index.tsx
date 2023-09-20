@@ -1,5 +1,5 @@
 export default function Drinks() {
   return (
-    <div>oi</div>
+    <div>aee</div>
   );
 }
