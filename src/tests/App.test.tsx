@@ -2,7 +2,6 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import App from '../App';
 import renderWithRouter from './renderWithRouter';
-import Header from '../components/Header';
 
 describe('Testes da página de Login', () => {
   test('Verifica se tem dois inputs e o botão de submit na tela e suas funcionalidades', async () => {
