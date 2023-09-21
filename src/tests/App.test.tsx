@@ -26,3 +26,26 @@ describe('Testes da página de Login', () => {
     expect(window.location.pathname).toBe('/meals');
   });
 });
+
+describe('Testes do Header', () => {
+  test('Verifica se os elementos estão na página corretamente', async () => {
+    const { user } = renderWithRouter(<App />, { route: '/meals' });
+
+    const profile = screen.getByTestId('profile-top-btn');
+    expect(profile).toBeInTheDocument();
+
+    const buttonSearch = screen.getByTestId('search-top-btn');
+    expect(buttonSearch).toBeInTheDocument();
+
+    const title = screen.getByTestId('page-title');
+    expect(title).toBeInTheDocument();
+    expect(screen.getByText('Meals')).toBeInTheDocument();
+
+    await user.click(buttonSearch);
+    const input = screen.getByTestId('search-input');
+    expect(input).toBeInTheDocument();
+
+    await user.click(buttonSearch);
+    expect(input).not.toBeInTheDocument();
+  });
+});

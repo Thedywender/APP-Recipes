@@ -8,17 +8,23 @@ import Drinks from './components/Drinks';
 import Profile from './components/Profile';
 import DoneRecipes from './components/DoneRecipes';
 import FavoriteRecipes from './components/FavoriteRecipes';
+import Header from './components/Header';
+import NotFound from './components/NotFound';
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={ <Login /> } />
-      <Route path="/meals" element={ <Meals /> } />
-      <Route path="/drinks" element={ <Drinks /> } />
-      <Route path="/profile" element={ <Profile /> } />
-      <Route path="/done-recipes" element={ <DoneRecipes /> } />
-      <Route path="/favorite-recipes" element={ <FavoriteRecipes /> } />
+      <Route path="/" element={ <Header /> }>
+        <Route path="meals" element={ <Meals /> } />
+        <Route path="profile" element={ <Profile /> } />
+        <Route path="drinks" element={ <Drinks /> } />
+        <Route path="done-recipes" element={ <DoneRecipes /> } />
+        <Route path="favorite-recipes" element={ <FavoriteRecipes /> } />
+      </Route>
+      <Route path="/*" element={ <NotFound /> } />
     </Routes>
+
   );
 }
 
