@@ -1,8 +1,14 @@
 import { createContext } from 'react';
+import { ApiDataType } from '../types';
 
 type RecipesType = {
-  searchInput: string,
-  setSearchInput: React.Dispatch<React.SetStateAction<string>>,
+  isLoading: boolean,
+  apiData: ApiDataType,
+  setIsLoading:React.Dispatch<React.SetStateAction<boolean>>,
+  fetchApiPerFirstLetter: (firstLetter: string) => Promise<ApiDataType>,
+  fetchApiPerIngredient: (firstLetter: string) => Promise<ApiDataType>,
+  fetchApiPerName: (firstLetter: string) => Promise<ApiDataType>,
+  setApiData: React.Dispatch<React.SetStateAction<ApiDataType>>,
 };
 
 const recipeContext = createContext({} as RecipesType);

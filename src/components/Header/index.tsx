@@ -80,7 +80,6 @@ export default function Header() {
   return (
     <>
       <header>{ getHeaderText() }</header>
-      <Outlet />
 
       {toggleSearch
       && (
@@ -89,6 +88,7 @@ export default function Header() {
 
       {!toggleSearch
       && []}
+      <Outlet />
     </>
   );
 }
