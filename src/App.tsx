@@ -10,6 +10,8 @@ import DoneRecipes from './components/DoneRecipes';
 import FavoriteRecipes from './components/FavoriteRecipes';
 import Header from './components/Header';
 import NotFound from './components/NotFound';
+import PageMealsDetails from './components/PageMealsDetails';
+import PageDrinksDetails from './components/PageDrinksDetails';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
         <Route path="done-recipes" element={ <DoneRecipes /> } />
         <Route path="favorite-recipes" element={ <FavoriteRecipes /> } />
       </Route>
+      <Route path="/meals/:id-da-receita" element={ <PageMealsDetails /> } />
+      <Route path="/drinks/:id-da-receita" element={ <PageDrinksDetails /> } />
       <Route path="/*" element={ <NotFound /> } />
     </Routes>
 
