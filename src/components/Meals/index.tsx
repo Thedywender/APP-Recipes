@@ -28,7 +28,7 @@ export default function Meals() {
         newData.map((meal, index) => {
           return (
             <div key={ meal.idMeal } data-testid={ `${index}-recipe-card` }>
-              <p data-testeid={ `${index}-card-name` }>{meal.strMeal}</p>
+              <p data-testid={ `${index}-card-name` }>{meal.strMeal}</p>
               <img
                 data-testid={ `${index}-card-img` }
                 src={ meal.strMealThumb }

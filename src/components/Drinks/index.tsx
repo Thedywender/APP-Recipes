@@ -28,7 +28,7 @@ export default function Drinks() {
         newData.map((drink, index) => {
           return (
             <div key={ drink.idDrink } data-testid={ `${index}-recipe-card` }>
-              <p data-testeid={ `${index}-card-name` }>{drink.strDrink}</p>
+              <p data-testid={ `${index}-card-name` }>{drink.strDrink}</p>
               <img
                 data-testid={ `${index}-card-img` }
                 src={ drink.strDrinkThumb }
