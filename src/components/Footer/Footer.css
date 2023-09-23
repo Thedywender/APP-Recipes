@@ -1,0 +1,26 @@
+/* Footer styles */
+footer {
+    background-color: yellow;
+    position: fixed;
+    bottom: 0; 
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+  }
+  
+  footer a {
+    text-decoration: none;
+  }
+  
+  footer img {
+    width: 24px;
+    height: 24px;
+    margin: 0 10px;
+    filter: invert(64%) sepia(70%) saturate(631%) hue-rotate(265deg) brightness(95%) contrast(92%);
+  }
+  
+  footer a:hover img {
+    filter: invert(97%) sepia(35%) saturate(304%) hue-rotate(303deg) brightness(98%) contrast(98%);
+  }
+  

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import recipeContext from '../../context/recipeContext';
 import { NewDrinkType } from '../../types';
+import Footer from '../Footer/Footer';
 
 export default function Drinks() {
   const { apiData, isLoading } = useContext(recipeContext);
@@ -38,6 +39,7 @@ export default function Drinks() {
           );
         })
       )}
+      <Footer />
     </>
   );
 }

@@ -8,7 +8,7 @@ const searchFilterInitialValue = {
   searchInput: '',
 };
 
-export default function SearchBar() {
+function SearchBar() {
   const {
     fetchApiPerIngredient,
     fetchApiPerName,
@@ -17,7 +17,7 @@ export default function SearchBar() {
     apiData,
     setApiData,
   } = useContext(recipeContext);
-
+  console.log(apiData);
   const navigate = useNavigate();
 
   const [formInfo,
@@ -43,6 +43,8 @@ export default function SearchBar() {
     }
   };
 
+  const error = 'Sorry, we haven\'t found any recipes for these filters.';
+
   const handleFilter = async () => {
     let data;
     setIsLoading(true);
@@ -52,6 +54,7 @@ export default function SearchBar() {
         setApiData(data);
         handleDataLength(data);
         setIsLoading(false);
+        if (data.meals === null || data.drinks === null) { window.alert(error); }
         break;
 
       case 'name-filter':
@@ -59,6 +62,7 @@ export default function SearchBar() {
         setApiData(data);
         handleDataLength(data);
         setIsLoading(false);
+        if (data.meals === null || data.drinks === null) { window.alert(error); }
         break;
 
       case 'first-letter-filter':
@@ -66,6 +70,7 @@ export default function SearchBar() {
         setApiData(data);
         handleDataLength(data);
         setIsLoading(false);
+        if (data.meals === null) { window.alert(error); }
         break;
 
       default:
@@ -116,3 +121,5 @@ export default function SearchBar() {
     </>
   );
 }
+
+export default SearchBar;

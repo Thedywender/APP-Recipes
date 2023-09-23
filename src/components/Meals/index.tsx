@@ -1,11 +1,12 @@
 import { useContext, useEffect, useState } from 'react';
 import recipeContext from '../../context/recipeContext';
 import { NewMealsType } from '../../types';
+import Footer from '../Footer/Footer';
 
 export default function Meals() {
   const { apiData, isLoading } = useContext(recipeContext);
   const [newData, setNewData] = useState<NewMealsType[]>([]);
-  console.log(newData);
+  // console.log(newData);
 
   useEffect(() => {
     const handleNewData = async () => {
@@ -38,6 +39,7 @@ export default function Meals() {
           );
         })
       )}
+      <Footer />
     </>
   );
 }
