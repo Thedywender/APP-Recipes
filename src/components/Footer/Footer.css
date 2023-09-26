@@ -1,6 +1,6 @@
 /* Footer styles */
 footer {
-    background-color: yellow;
+    background-color: #41197F;
     position: fixed;
     bottom: 0; 
     width: 100%;
@@ -17,10 +17,10 @@ footer {
     width: 24px;
     height: 24px;
     margin: 0 10px;
-    filter: invert(64%) sepia(70%) saturate(631%) hue-rotate(265deg) brightness(95%) contrast(92%);
+    filter: invert(89%) sepia(20%) saturate(631%) hue-rotate(265deg) brightness(95%) contrast(92%);
   }
   
   footer a:hover img {
-    filter: invert(97%) sepia(35%) saturate(304%) hue-rotate(303deg) brightness(98%) contrast(98%);
+    filter: invert(57%) sepia(35%) saturate(304%) hue-rotate(303deg) brightness(98%) contrast(98%);
   }
   

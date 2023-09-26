@@ -10,6 +10,7 @@ type ContextProviderProps = {
 export default function ContextProvider({ children }: ContextProviderProps) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [apiData, setApiData] = useState<ApiDataType>({});
+  const [detailsByCategory, setDetailsByCategory] = useState([]);
 
   const location = useLocation();
   const currentPath = location.pathname;
@@ -61,6 +62,8 @@ export default function ContextProvider({ children }: ContextProviderProps) {
     fetchApiPerName,
     apiData,
     setApiData,
+    setDetailsByCategory,
+    detailsByCategory,
   };
 
   return (

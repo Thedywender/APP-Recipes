@@ -24,8 +24,9 @@ function App() {
         <Route path="done-recipes" element={ <DoneRecipes /> } />
         <Route path="favorite-recipes" element={ <FavoriteRecipes /> } />
       </Route>
-      <Route path="/meals/:id-da-receita" element={ <PageMealsDetails /> } />
-      <Route path="/drinks/:id-da-receita" element={ <PageDrinksDetails /> } />
+      <Route path="/meals/:id" element={ <PageMealsDetails /> } />
+      <Route path="/drinks/:id" element={ <PageDrinksDetails /> } />
+
       <Route path="/*" element={ <NotFound /> } />
     </Routes>
 

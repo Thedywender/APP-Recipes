@@ -17,11 +17,13 @@ function SearchBar() {
     apiData,
     setApiData,
   } = useContext(recipeContext);
-  console.log(apiData);
+  // console.log(apiData);
   const navigate = useNavigate();
 
   const [formInfo,
     setFormInfo] = useState<SearchFilterType>(searchFilterInitialValue);
+
+  const error1 = 'Your search must have only 1 (one) character';
 
   const handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     setFormInfo({
@@ -29,7 +31,7 @@ function SearchBar() {
       [target.name]: target.value,
     });
     if (formInfo.filter === 'first-letter-filter' && formInfo.searchInput.length >= 1) {
-      window.alert('Your search must have only 1 (one) character');
+      window.alert(error1);
       setFormInfo({ ...formInfo, searchInput: '' });
     }
   };
