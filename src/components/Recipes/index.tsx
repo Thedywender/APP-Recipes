@@ -6,6 +6,7 @@ import {
 import {
   apiDetailsByCategoryDrinks,
   apiDetailsByCategoryMeals } from '../../utils/apisDetailsByCategories';
+import { fetchRecipesApiMeals, fetchRecipesApiDrinks } from '../../utils/apisRecipes';
 import recipeContext from '../../context/recipeContext';
 import { NewMealsType } from '../../types';
 
@@ -23,18 +24,7 @@ function Recipes() {
   const [categoriesData, setCategoriesData] = useState([]);
   const [mealOrDrink, setMealorDrink] = useState('');
   const [category, setCategory] = useState('');
-
-  const fetchRecipesApiMeals = async () => {
-    const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
-    const data = await response.json();
-    return data;
-  };
-
-  const fetchRecipesApiDrinks = async () => {
-    const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
-    const data = await response.json();
-    return data;
-  };
+  console.log(recipesData);
 
   useEffect(() => {
     const apiDataCategory = async () => {

@@ -12,6 +12,7 @@ import Header from './components/Header';
 import NotFound from './components/NotFound';
 import PageMealsDetails from './components/PageMealsDetails';
 import PageDrinksDetails from './components/PageDrinksDetails';
+import RecipeInProgress from './components/RecipeInProgress';
 
 function App() {
   return (
@@ -26,6 +27,8 @@ function App() {
       </Route>
       <Route path="/meals/:id" element={ <PageMealsDetails /> } />
       <Route path="/drinks/:id" element={ <PageDrinksDetails /> } />
+      <Route path="/meals/:id/in-progress" element={ <RecipeInProgress /> } />
+      <Route path="/drinks/:id/in-progress" element={ <RecipeInProgress /> } />
 
       <Route path="/*" element={ <NotFound /> } />
     </Routes>
