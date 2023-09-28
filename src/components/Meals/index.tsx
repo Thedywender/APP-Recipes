@@ -5,7 +5,6 @@ import { NewMealsType } from '../../types';
 export default function Meals() {
   const { apiData, isLoading } = useContext(recipeContext);
   const [newData, setNewData] = useState<NewMealsType[]>([]);
-  console.log(newData);
 
   useEffect(() => {
     const handleNewData = async () => {

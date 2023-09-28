@@ -8,7 +8,7 @@ type ContextProviderProps = {
 };
 
 export default function ContextProvider({ children }: ContextProviderProps) {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [apiData, setApiData] = useState<ApiDataType>({});
 
   const location = useLocation();
@@ -53,6 +53,39 @@ export default function ContextProvider({ children }: ContextProviderProps) {
     }
   };
 
+  const fetchApiPerId = async (id: string) => {
+    const mealsPath = `/meals/${id}`;
+    const drinksPath = `/drinks/${id}`;
+
+    if (currentPath === mealsPath) {
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+      const data = await response.json();
+      return data;
+    }
+    if (currentPath === drinksPath) {
+      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+      const data = await response.json();
+      return data;
+    }
+  };
+
+  const fetchRecomendation = async (id: string) => {
+    const mealsPath = `/meals/${id}`;
+    const drinksPath = `/drinks/${id}`;
+
+    if (currentPath === mealsPath) {
+      const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+      const data = await response.json();
+      return data;
+    }
+
+    if (currentPath === drinksPath) {
+      const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+      const data = await response.json();
+      return data;
+    }
+  };
+
   const value = {
     isLoading,
     setIsLoading,
@@ -61,6 +94,8 @@ export default function ContextProvider({ children }: ContextProviderProps) {
     fetchApiPerName,
     apiData,
     setApiData,
+    fetchApiPerId,
+    fetchRecomendation,
   };
 
   return (
