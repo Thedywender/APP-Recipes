@@ -25,4 +25,8 @@ export type NewMealsType = {
   idMeal: string,
   strMeal: string,
   strMealThumb: string,
+  strCategory: string,
+  strAlcoholic: string,
+  strInstructions: string,
+  strDrink: string,
 };

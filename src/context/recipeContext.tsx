@@ -9,6 +9,8 @@ type RecipesType = {
   fetchApiPerIngredient: (firstLetter: string) => Promise<ApiDataType>,
   fetchApiPerName: (firstLetter: string) => Promise<ApiDataType>,
   setApiData: React.Dispatch<React.SetStateAction<ApiDataType>>,
+  shareValue: () => void,
+  toggleFavorite: () => void,
 };
 
 const recipeContext = createContext({} as RecipesType);

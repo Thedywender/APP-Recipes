@@ -10,6 +10,9 @@ type ContextProviderProps = {
 export default function ContextProvider({ children }: ContextProviderProps) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [apiData, setApiData] = useState<ApiDataType>({});
+  const [detailsByCategory, setDetailsByCategory] = useState([]);
+  const [favorites, setFavorites] = useState<ApiDataType[]>([]);
+  const [share, setShare] = useState(false);
 
   const location = useLocation();
   const currentPath = location.pathname;
@@ -53,6 +56,45 @@ export default function ContextProvider({ children }: ContextProviderProps) {
     }
   };
 
+  const createFavoriteItem = (item: any) => {
+    return {
+      id: item[`id${currentPath.includes('/meals') ? 'Meal' : 'Drink'}`],
+      type: currentPath.includes('/meals') ? 'meal' : 'drink',
+      nationality: item.strArea || '',
+      category: item.strCategory || '',
+      alcoholicOrNot: item.strAlcoholic || '',
+      name: item[`str${currentPath.includes('/meals') ? 'Meal' : 'Drink'}`],
+      image: item[`str${currentPath.includes('/meals') ? 'Meal' : 'Drink'}Thumb`],
+    };
+  };
+
+  function toggleFavorite(item: any) {
+    const favoriteItem = createFavoriteItem(item);
+    const getStorage = localStorage.getItem('favoriteRecipes');
+    if (getStorage) {
+      const storageParsed = JSON.parse(getStorage);
+      const newFavorites = storageParsed
+        .filter((favorite: any) => favorite.id !== favoriteItem.id);
+      if (newFavorites.length === storageParsed.length) {
+        localStorage.setItem(
+          'favoriteRecipes',
+          JSON.stringify([...storageParsed, favoriteItem]),
+        );
+      } else {
+        localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
+      }
+    } else {
+      localStorage.setItem('favoriteRecipes', JSON.stringify([favoriteItem]));
+    }
+  }
+
+  const shareValue = () => {
+    const link = `http://localhost:3000${currentPath.replace('/in-progress', '')}`;
+    navigator.clipboard.writeText(link);
+    setShare(!share);
+    return link;
+  };
+
   const value = {
     isLoading,
     setIsLoading,
@@ -61,6 +103,14 @@ export default function ContextProvider({ children }: ContextProviderProps) {
     fetchApiPerName,
     apiData,
     setApiData,
+    setDetailsByCategory,
+    detailsByCategory,
+    toggleFavorite,
+    favorites,
+    shareValue,
+    share,
+    currentPath,
+    setFavorites,
   };
 
   return (
