@@ -4,10 +4,11 @@ import recipeContext from '../../context/recipeContext';
 import { ApiDataType, MealOrDrinkType, NewDrinkType, NewMealsType } from '../../types';
 import './RecipeDetails.css';
 import shareIcon from '../../images/shareIcon.svg';
-import favoriteIcon from '../../images/blackHeartIcon.svg';
+import blackHeart from '../../images/blackHeartIcon.svg';
+import whiteHeart from '../../images/whiteHeartIcon.svg';
 
 export default function RecipeDetails() {
-  const { fetchApiPerId, fetchRecomendation } = useContext(recipeContext);
+  const { fetchApiPerId, fetchRecomendation, toggleFavorite } = useContext(recipeContext);
   const { id } = useParams();
   const { pathname } = useLocation();
   const typeRecipe = pathname.split('/')[1]; // meals ou drinks
@@ -17,6 +18,7 @@ export default function RecipeDetails() {
   const [recomendationDrinks, setRecomendationDrinks] = useState<NewDrinkType[]>([]);
   const [changeNameBtn, setChangeNameBtn] = useState<string>('Start Recipe');
   const [clipboard, setClipboard] = useState<boolean>(false);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   // tamanho máximo de ingredientes vindo da API
   const MAX_INGREDIENTS_LIST_SIZE = 20;
@@ -77,6 +79,23 @@ export default function RecipeDetails() {
     );
   };
 
+  const makeFavoriteBtn = (mealOrDrink: any) => {
+    return (
+      <button
+        onClick={ () => {
+          toggleFavorite(mealOrDrink);
+          setIsFavorite(!isFavorite);
+        } }
+      >
+        <img
+          src={ !isFavorite ? whiteHeart : blackHeart }
+          alt="Favorite-Icon"
+          data-testid="favorite-btn"
+        />
+      </button>
+    );
+  };
+
   useEffect(() => {
     const handleLocalStorage = () => {
       if (localStorage.getItem('inProgressRecipes')) {
@@ -105,6 +124,14 @@ export default function RecipeDetails() {
         setRecomendationDrinks(drinkData as NewDrinkType[]);
       }
     };
+    const storage = localStorage.getItem('favoriteRecipes');
+    if (storage) {
+      const favoriteRecipes = JSON.parse(storage);
+      const isFavoriteRecipe = favoriteRecipes
+        .some((recipe: any) => recipe.id === id);
+      setIsFavorite(isFavoriteRecipe);
+    }
+
     handleLocalStorage();
     RequestApi();
     RequestRecomendation();
@@ -119,10 +146,6 @@ export default function RecipeDetails() {
           alt="Share-Icon"
         />
 
-      </button>
-
-      <button>
-        <img src={ favoriteIcon } alt="Favorite-Icon" data-testid="favorite-btn" />
       </button>
 
       {clipboard
@@ -164,8 +187,9 @@ export default function RecipeDetails() {
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media;
                  gyroscope; picture-in-picture; web-share"
               />
-
+              {makeFavoriteBtn(meal)}
             </div>
+
           );
         })
       )}
@@ -195,6 +219,7 @@ export default function RecipeDetails() {
                 }
               </ul>
               <p data-testid="instructions">{drink.strInstructions}</p>
+              {makeFavoriteBtn(drink)}
             </div>
           );
         })
