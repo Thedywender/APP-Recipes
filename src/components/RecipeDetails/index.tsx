@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import recipeContext from '../../context/recipeContext';
-import { ApiDataType, NewDrinkType, NewMealsType } from '../../types';
+import { ApiDataType, MealOrDrinkType, NewDrinkType, NewMealsType } from '../../types';
 import './RecipeDetails.css';
 import shareIcon from '../../images/shareIcon.svg';
 import favoriteIcon from '../../images/blackHeartIcon.svg';
@@ -10,38 +10,34 @@ export default function RecipeDetails() {
   const { fetchApiPerId, fetchRecomendation } = useContext(recipeContext);
   const { id } = useParams();
   const { pathname } = useLocation();
+  const typeRecipe = pathname.split('/')[1]; // meals ou drinks
   const navigate = useNavigate();
   const [productDetails, setProductDetails] = useState<ApiDataType>({});
   const [recomendationMeals, setRecomendationMeals] = useState<NewMealsType[]>([]);
   const [recomendationDrinks, setRecomendationDrinks] = useState<NewDrinkType[]>([]);
+  const [changeNameBtn, setChangeNameBtn] = useState<string>('Start Recipe');
+  const [clipboard, setClipboard] = useState<boolean>(false);
 
   // tamanho máximo de ingredientes vindo da API
   const MAX_INGREDIENTS_LIST_SIZE = 20;
 
-  useEffect(() => {
-    const RequestApi = async () => {
-      const data = await fetchApiPerId(id as string);
-      setProductDetails(data);
-    };
-    RequestApi();
-  }, [fetchApiPerId, id]);
+  const handleLocalStorage = () => {
+    if (localStorage.getItem('inProgressRecipes')) {
+      const inProgressRecipes = JSON
+        .parse(localStorage.getItem('inProgressRecipes') as string);
 
-  useEffect(() => {
-    const RequestRecomendation = async () => {
-      const data = await fetchRecomendation(id as string);
-      if (data.meals) {
-        const mealData = await data.meals.slice(0, 6);
-        setRecomendationMeals(mealData as NewMealsType[]);
+      if (inProgressRecipes[typeRecipe][`${id}`]) {
+        setChangeNameBtn('Continue Recipe');
       }
-      if (data.drinks) {
-        const drinkData = await data.drinks.slice(0, 6);
-        setRecomendationDrinks(drinkData as NewDrinkType[]);
-      }
-    };
-    RequestRecomendation();
-  }, [fetchRecomendation, id]);
+    }
+  };
 
-  const buildIngredientList = (mealOrDrink: ApiDataType) => {
+  const RequestApi = async () => {
+    const data = await fetchApiPerId(id as string);
+    setProductDetails(data);
+  };
+
+  const buildIngredientList = (mealOrDrink: MealOrDrinkType) => {
     const ingredientList = [];
     for (let index = 1; index <= MAX_INGREDIENTS_LIST_SIZE; index++) {
       const currentMeasure = mealOrDrink[`strMeasure${index}`];
@@ -83,8 +79,57 @@ export default function RecipeDetails() {
     );
   };
 
+  const handleClickClipboard = () => {
+    navigator.clipboard.writeText(`http://localhost:3000${pathname}`).then(
+      () => {
+        try {
+          setClipboard(true);
+        } finally {
+          setTimeout(() => {
+            setClipboard(false);
+          }, 3000);
+        }
+      },
+    );
+  };
+
+  useEffect(() => {
+    const RequestRecomendation = async () => {
+      const data = await fetchRecomendation(id as string);
+      if (data.meals) {
+        const mealData = await data.meals.slice(0, 6);
+        setRecomendationMeals(mealData as NewMealsType[]);
+      }
+      if (data.drinks) {
+        const drinkData = await data.drinks.slice(0, 6);
+        setRecomendationDrinks(drinkData as NewDrinkType[]);
+      }
+    };
+    handleLocalStorage();
+    RequestApi();
+    RequestRecomendation();
+  }, [fetchRecomendation, id]);
+
   return (
     <>
+      <button onClick={ handleClickClipboard }>
+        <img
+          src={ shareIcon }
+          data-testid="share-btn"
+          alt="Share-Icon"
+        />
+
+      </button>
+
+      <button>
+        <img src={ favoriteIcon } alt="Favorite-Icon" data-testid="favorite-btn" />
+      </button>
+
+      {clipboard
+        && (
+          <span>Link copied!</span>
+        )}
+
       {pathname === `/meals/${id}` && productDetails.meals && (
         productDetails.meals.map((meal) => {
           return (
@@ -160,16 +205,9 @@ export default function RecipeDetails() {
       <button
         data-testid="start-recipe-btn"
         id="start-btn"
-        onClick={ () => navigate(`/meals/${id}/in-progress`) }
+        onClick={ () => navigate(`/${typeRecipe}/${id}/in-progress`) }
       >
-        Start Recipe
-
-      </button>
-
-      <button data-testid="share-btn"><img src={ shareIcon } alt="Share-Icon" /></button>
-      <button data-testid="favorite-btn">
-        <img src={ favoriteIcon } alt="Share-Icon" />
-
+        {changeNameBtn}
       </button>
 
     </>

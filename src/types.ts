@@ -26,3 +26,7 @@ export type NewMealsType = {
   strMeal: string,
   strMealThumb: string,
 };
+
+export type MealOrDrinkType = {
+  [key: string]: string,
+};
