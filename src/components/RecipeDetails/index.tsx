@@ -108,7 +108,7 @@ export default function RecipeDetails() {
     handleLocalStorage();
     RequestApi();
     RequestRecomendation();
-  }, [fetchRecomendation, id]);
+  }, [fetchRecomendation, id, RequestApi, handleLocalStorage]);
 
   return (
     <>
@@ -204,7 +204,7 @@ export default function RecipeDetails() {
 
       <button
         data-testid="start-recipe-btn"
-        id="start-btn"
+        className="start-btn"
         onClick={ () => navigate(`/${typeRecipe}/${id}/in-progress`) }
       >
         {changeNameBtn}

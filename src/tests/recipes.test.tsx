@@ -1,5 +1,4 @@
 import { screen, waitFor } from '@testing-library/react';
-import App from '../App';
 import renderWithRouter from './renderWithRouter';
 import ContextProvider from '../context/contextProvider';
 import Recipes from '../components/Recipes';

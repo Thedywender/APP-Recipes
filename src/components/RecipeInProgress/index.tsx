@@ -60,7 +60,7 @@ function RecipesInProgress() {
         .some((recipe: any) => recipe.id === id);
       setIsFavorite(isFavoriteRecipe);
     }
-  }, [id]);
+  }, [id, currentPath]);
 
   const filterIngredients = (dataFilter: any) => {
     const result = Object.keys(dataFilter[0]).filter(

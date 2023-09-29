@@ -34,7 +34,7 @@ function Recipes() {
       }
     };
     apiDataCategory();
-  }, []);
+  }, [currentPath]);
 
   useEffect(() => {
     const apiDataRecipes = async () => {
@@ -51,7 +51,7 @@ function Recipes() {
       }
     };
     apiDataRecipes();
-  }, []);
+  }, [currentPath]);
 
   useEffect(() => {
     const handleFilterData = async () => {
@@ -65,7 +65,7 @@ function Recipes() {
       }
     };
     handleFilterData();
-  }, [apiData]);
+  }, [apiData, currentPath]);
 
   const apiDataByCategories = async (categoryRecipes: any) => {
     if (category === categoryRecipes) {

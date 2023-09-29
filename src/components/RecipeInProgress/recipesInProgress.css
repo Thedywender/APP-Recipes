@@ -1,11 +1,10 @@
 .labelCheckBox {
     margin-right: 5px;
     margin-top: 10px;
-}
-.inputCheckbox {
-      text-decoration: none;
-}
-
-.checkboxFiltered{
-    text-decoration: line-through solid rgb(0, 0, 0)
-}
+  }
+  .inputCheckbox {
+    text-decoration: none;
+  }
+  .checkboxFiltered {
+    text-decoration: line-through solid black;
+  }
