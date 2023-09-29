@@ -21,22 +21,6 @@ export default function RecipeDetails() {
   // tamanho máximo de ingredientes vindo da API
   const MAX_INGREDIENTS_LIST_SIZE = 20;
 
-  const handleLocalStorage = () => {
-    if (localStorage.getItem('inProgressRecipes')) {
-      const inProgressRecipes = JSON
-        .parse(localStorage.getItem('inProgressRecipes') as string);
-
-      if (inProgressRecipes[typeRecipe][`${id}`]) {
-        setChangeNameBtn('Continue Recipe');
-      }
-    }
-  };
-
-  const RequestApi = async () => {
-    const data = await fetchApiPerId(id as string);
-    setProductDetails(data);
-  };
-
   const buildIngredientList = (mealOrDrink: MealOrDrinkType) => {
     const ingredientList = [];
     for (let index = 1; index <= MAX_INGREDIENTS_LIST_SIZE; index++) {
@@ -94,6 +78,22 @@ export default function RecipeDetails() {
   };
 
   useEffect(() => {
+    const handleLocalStorage = () => {
+      if (localStorage.getItem('inProgressRecipes')) {
+        const inProgressRecipes = JSON
+          .parse(localStorage.getItem('inProgressRecipes') as string);
+
+        if (inProgressRecipes[typeRecipe][`${id}`]) {
+          setChangeNameBtn('Continue Recipe');
+        }
+      }
+    };
+
+    const RequestApi = async () => {
+      const data = await fetchApiPerId(id as string);
+      setProductDetails(data);
+    };
+
     const RequestRecomendation = async () => {
       const data = await fetchRecomendation(id as string);
       if (data.meals) {
@@ -108,7 +108,7 @@ export default function RecipeDetails() {
     handleLocalStorage();
     RequestApi();
     RequestRecomendation();
-  }, [fetchRecomendation, id, RequestApi, handleLocalStorage]);
+  }, [fetchRecomendation, id, fetchApiPerId, typeRecipe]);
 
   return (
     <>
