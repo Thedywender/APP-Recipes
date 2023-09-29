@@ -23,7 +23,6 @@ afterEach(() => {
 const searchBtn = 'search-top-btn';
 const searchInput = 'search-input';
 const btnExecSearch = 'exec-search-btn';
-const firstLetterRadio = 'first-letter-search-radio';
 const errorSorry = 'Sorry, we haven\'t found any recipes for these filters.';
 
 describe('Testes da página de Login', () => {
@@ -70,5 +69,68 @@ describe('Testes do Header', () => {
 
     await user.click(buttonSearch);
     expect(input).not.toBeInTheDocument();
+  });
+});
+
+describe('Testes do SearchBar', () => {
+  test('Verifica a função fistLetter', async () => {
+    const { user } = renderWithRouter(<ContextProvider><App /></ContextProvider>, { route: '/meals' });
+
+    const buttonSearch = screen.getByTestId(searchBtn);
+    expect(buttonSearch).toBeInTheDocument();
+    await user.click(buttonSearch);
+    const input = screen.getByTestId(searchInput);
+    expect(input).toBeInTheDocument();
+    const radioFirstLetter = screen.getByText(/primeira letra/i);
+
+    await user.click(radioFirstLetter);
+    await user.type(input, 'a');
+  });
+
+  test('Verifica a função ingrediente', async () => {
+    const { user } = renderWithRouter(<ContextProvider><App /></ContextProvider>, { route: '/meals' });
+
+    const buttonSearch = screen.getByTestId(searchBtn);
+    expect(buttonSearch).toBeInTheDocument();
+    await user.click(buttonSearch);
+    const input = screen.getByTestId(searchInput);
+    expect(input).toBeInTheDocument();
+    const radioFirstLetter = screen.getByText(/primeira letra/i);
+
+    await user.click(radioFirstLetter);
+    await user.type(input, 'a');
+    const botaoSearch = screen.getByTestId(btnExecSearch);
+    await user.click(botaoSearch);
+  });
+
+  const alertCall = () => { window.alert(errorSorry); };
+  test('Verifica se ao digitar um nome inválido retorna erro', async () => {
+    const { user } = renderWithRouter(<ContextProvider><App /></ContextProvider>, { route: '/meals' });
+
+    const MOCK_RETURN = {
+      ok: true,
+      status: 200,
+      json: async () => ({ drinks: null }),
+    } as Response;
+    vi.spyOn(global, 'fetch').mockResolvedValue(MOCK_RETURN);
+
+    const originalAlert = window.alert;
+    window.alert = vi.fn();
+    alertCall();
+
+    const buttonSearch = screen.getByTestId(searchBtn);
+    expect(buttonSearch).toBeInTheDocument();
+    await user.click(buttonSearch);
+    const input = screen.getByTestId(searchInput);
+    expect(input).toBeInTheDocument();
+    await user.type(input, 'xablau');
+    const primerLetterRadio = screen.getByText(/Primeira letra/i);
+    await user.click(primerLetterRadio);
+    const btnExec = screen.getByTestId(btnExecSearch);
+    await user.click(btnExec);
+
+    expect(window.alert).toHaveBeenCalledWith(errorSorry);
+
+    window.alert = originalAlert;
   });
 });
