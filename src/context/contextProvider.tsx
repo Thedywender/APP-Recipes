@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import recipeContext from './recipeContext';
-import { ApiDataType } from '../types';
+import { ApiDataType, FavoritesType } from '../types';
 
 type ContextProviderProps = {
   children: React.ReactNode,
 };
 
 export default function ContextProvider({ children }: ContextProviderProps) {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [apiData, setApiData] = useState<ApiDataType>({});
-  const [detailsByCategory, setDetailsByCategory] = useState([]);
   const [favorites, setFavorites] = useState<ApiDataType[]>([]);
-  const [share, setShare] = useState(false);
+  const [share, setShare] = useState<boolean>(false);
 
   const location = useLocation();
   const currentPath = location.pathname;
@@ -56,7 +55,40 @@ export default function ContextProvider({ children }: ContextProviderProps) {
     }
   };
 
-  const createFavoriteItem = (item: any) => {
+  const fetchApiPerId = async (id: string) => {
+    const mealsPath = `/meals/${id}`;
+    const drinksPath = `/drinks/${id}`;
+
+    if (currentPath === mealsPath) {
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+      const data = await response.json();
+      return data;
+    }
+    if (currentPath === drinksPath) {
+      const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`);
+      const data = await response.json();
+      return data;
+    }
+  };
+
+  const fetchRecomendation = async (id: string) => {
+    const mealsPath = `/meals/${id}`;
+    const drinksPath = `/drinks/${id}`;
+
+    if (currentPath === mealsPath) {
+      const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+      const data = await response.json();
+      return data;
+    }
+
+    if (currentPath === drinksPath) {
+      const response = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+      const data = await response.json();
+      return data;
+    }
+  };
+
+  const createFavoriteItem = (item: ApiDataType) => {
     return {
       id: item[`id${currentPath.includes('/meals') ? 'Meal' : 'Drink'}`],
       type: currentPath.includes('/meals') ? 'meal' : 'drink',
@@ -68,13 +100,13 @@ export default function ContextProvider({ children }: ContextProviderProps) {
     };
   };
 
-  function toggleFavorite(item: any) {
+  function toggleFavorite(item: ApiDataType) {
     const favoriteItem = createFavoriteItem(item);
     const getStorage = localStorage.getItem('favoriteRecipes');
     if (getStorage) {
       const storageParsed = JSON.parse(getStorage);
       const newFavorites = storageParsed
-        .filter((favorite: any) => favorite.id !== favoriteItem.id);
+        .filter((favorite: FavoritesType) => favorite.id !== favoriteItem.id);
       if (newFavorites.length === storageParsed.length) {
         localStorage.setItem(
           'favoriteRecipes',
@@ -103,12 +135,13 @@ export default function ContextProvider({ children }: ContextProviderProps) {
     fetchApiPerName,
     apiData,
     setApiData,
-    setDetailsByCategory,
-    detailsByCategory,
+    fetchApiPerId,
+    fetchRecomendation,
     toggleFavorite,
     favorites,
     shareValue,
     share,
+    setShare,
     currentPath,
     setFavorites,
   };

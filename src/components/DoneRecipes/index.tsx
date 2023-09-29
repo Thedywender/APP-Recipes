@@ -9,7 +9,6 @@ export default function DoneRecipes() {
 
   const [mealsDoneRecipes, setMealsDoneRecipes] = useState([]);
   const [drinksDoneRecipes, setDrinksDoneRecipes] = useState([]);
-  const [activeFilter, setActiveFilter] = useState('all');
   const [FilteredRecipes, setFilteredRecipes] = useState([]);
 
   useEffect(() => {
@@ -33,7 +32,6 @@ export default function DoneRecipes() {
   }, []);
 
   const handleFilterClick = (filter) => {
-    setActiveFilter(filter);
     let filteredRecipes = [];
 
     if (filter === 'meals') {

@@ -14,11 +14,7 @@ function Recipes() {
   const location = useLocation();
   const currentPath = location.pathname;
 
-  const {
-    setDetailsByCategory,
-    detailsByCategory,
-    apiData,
-  } = useContext(recipeContext);
+  const { apiData } = useContext(recipeContext);
 
   const [recipesData, setRecipesData] = useState<NewMealsType[]>([]);
   const [categoriesData, setCategoriesData] = useState([]);
@@ -38,7 +34,7 @@ function Recipes() {
       }
     };
     apiDataCategory();
-  }, []);
+  }, [currentPath]);
 
   useEffect(() => {
     const apiDataRecipes = async () => {
@@ -55,7 +51,7 @@ function Recipes() {
       }
     };
     apiDataRecipes();
-  }, []);
+  }, [currentPath]);
 
   useEffect(() => {
     const handleFilterData = async () => {
@@ -69,7 +65,7 @@ function Recipes() {
       }
     };
     handleFilterData();
-  }, [apiData]);
+  }, [apiData, currentPath]);
 
   const apiDataByCategories = async (categoryRecipes: any) => {
     if (category === categoryRecipes) {

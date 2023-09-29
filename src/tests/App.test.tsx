@@ -22,9 +22,9 @@ afterEach(() => {
 
 const searchBtn = 'search-top-btn';
 const searchInput = 'search-input';
-const btnExecSearch = 'exec-search-btn';
+/* const btnExecSearch = 'exec-search-btn';
 const firstLetterRadio = 'first-letter-search-radio';
-const errorSorry = 'Sorry, we haven\'t found any recipes for these filters.';
+const errorSorry = 'Sorry, we haven\'t found any recipes for these filters.'; */
 
 describe('Testes da página de Login', () => {
   test('Verifica se tem dois inputs e o botão de submit na tela e suas funcionalidades', async () => {
