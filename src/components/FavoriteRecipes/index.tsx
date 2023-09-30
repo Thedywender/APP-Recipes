@@ -47,6 +47,14 @@ export default function FavoriteRecipes() {
     setFilteredRecipes(filteredRecipes);
   };
 
+  const unFavrorite = (id: string) => {
+    const getStorage = localStorage.getItem('favoriteRecipes');
+    const parsedStorage = JSON.parse(getStorage);
+    const filteredStorage = parsedStorage.filter((recipe) => recipe.id !== id);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(filteredStorage));
+    setFilteredRecipes(filteredStorage);
+  };
+
   const shareValueLink = (linked: string) => {
     const link = `http://localhost:3000${linked}`;
     navigator.clipboard.writeText(link);
@@ -87,15 +95,16 @@ export default function FavoriteRecipes() {
               height={ 200 }
             />
           </Link>
-          {(recipe.type === 'drinks') ? (
-            <p data-testid={ `${index}-horizontal-top-text` }>
-              {`${recipe.alcoholicOrNot}`}
-            </p>
+          {recipe.type === 'drinks' }
+          ? (
+          <p data-testid={ `${index}-horizontal-top-text` }>
+            {`${recipe.alcoholicOrNot}`}
+          </p>
           ) : (
-            <p data-testid={ `${index}-horizontal-top-text` }>
-              {`${recipe.nationality} - ${recipe.category}`}
-            </p>
-          )}
+          <p data-testid={ `${index}-horizontal-top-text` }>
+            {`${recipe.nationality} - ${recipe.category}`}
+          </p>
+          )
           <Link to={ `/${recipe.type}s/${recipe.id}` }>
             <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
           </Link>
@@ -109,7 +118,7 @@ export default function FavoriteRecipes() {
             />
           </button>
           <button
-            onClick={ () => toggleFavorite(recipe) }
+            onClick={ () => unFavrorite(recipe.id) }
           >
             <img
               data-testid={ `${index}-horizontal-favorite-btn` }
