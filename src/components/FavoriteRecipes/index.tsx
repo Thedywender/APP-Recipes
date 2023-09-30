@@ -85,15 +85,15 @@ export default function FavoriteRecipes() {
             width={ 200 }
             height={ 200 }
           />
-          (recipe.type === 'drinks') ? (
-          <p data-testid={ `${index}-horizontal-top-text` }>
-            {`${recipe.alcoholicOrNot}`}
-          </p>
+          {(recipe.type === 'drinks') ? (
+            <p data-testid={ `${index}-horizontal-top-text` }>
+              {`${recipe.alcoholicOrNot}`}
+            </p>
           ) : (
-          <p data-testid={ `${index}-horizontal-top-text` }>
-            {`${recipe.nationality} - ${recipe.category}`}
-          </p>
-          )
+            <p data-testid={ `${index}-horizontal-top-text` }>
+              {`${recipe.nationality} - ${recipe.category}`}
+            </p>
+          )}
           <Link to={ `/${recipe.type}s/${recipe.id}` }>
             <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
           </Link>
