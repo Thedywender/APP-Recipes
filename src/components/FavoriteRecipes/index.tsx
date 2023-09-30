@@ -7,7 +7,7 @@ import recipeContext from '../../context/recipeContext';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 export default function FavoriteRecipes() {
-  const { share, setShare, toggleFavorite } = useContext(recipeContext);
+  const { share, setShare } = useContext(recipeContext);
 
   const [mealsDoneRecipes, setMealsDoneRecipes] = useState([]);
   const [drinksDoneRecipes, setDrinksDoneRecipes] = useState([]);
