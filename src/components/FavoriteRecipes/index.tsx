@@ -78,13 +78,15 @@ export default function FavoriteRecipes() {
 
       {FilteredRecipes.map((recipe, index) => (
         <div key={ index }>
-          <img
-            data-testid={ `${index}-horizontal-image` }
-            src={ recipe.image }
-            alt={ recipe.name }
-            width={ 200 }
-            height={ 200 }
-          />
+          <Link to={ `/${recipe.type}s/${recipe.id}` }>
+            <img
+              data-testid={ `${index}-horizontal-image` }
+              src={ recipe.image }
+              alt={ recipe.name }
+              width={ 200 }
+              height={ 200 }
+            />
+          </Link>
           {(recipe.type === 'drinks') ? (
             <p data-testid={ `${index}-horizontal-top-text` }>
               {`${recipe.alcoholicOrNot}`}
