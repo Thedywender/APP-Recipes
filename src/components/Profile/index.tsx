@@ -8,7 +8,7 @@ export default function Profile() {
   useEffect(() => {
     const localStorageData = localStorage.getItem('user');
     const parsedData = JSON.parse(localStorageData);
-    if (parsedData && typeof parsedData === 'object' && 'email' in parsedData) {
+    if (parsedData) {
       setEmail(parsedData.email);
     }
   }, []);
