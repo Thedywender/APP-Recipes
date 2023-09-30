@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import mealIcon from '../../images/mealIcon.svg';
 import drinkIcon from '../../images/drinkIcon.svg';
 import shareImg from '../../images/shareIcon.svg';
 import recipeContext from '../../context/recipeContext';
 
 export default function DoneRecipes() {
-  const { shareValue, share } = useContext(recipeContext);
+  const { share, setShare } = useContext(recipeContext);
 
   const [mealsDoneRecipes, setMealsDoneRecipes] = useState([]);
   const [drinksDoneRecipes, setDrinksDoneRecipes] = useState([]);
@@ -45,6 +46,13 @@ export default function DoneRecipes() {
     setFilteredRecipes(filteredRecipes);
   };
 
+  const shareValueLink = (linked: string) => {
+    const link = `http://localhost:3000${linked}`;
+    navigator.clipboard.writeText(link);
+    setShare(!share);
+    return link;
+  };
+
   return (
     <div>
       <button
@@ -69,13 +77,15 @@ export default function DoneRecipes() {
 
       {FilteredRecipes.map((recipe, index) => (
         <div key={ index }>
-          <img
-            data-testid={ `${index}-horizontal-image` }
-            src={ recipe.image }
-            alt={ recipe.name }
-            width={ 200 }
-            height={ 200 }
-          />
+          <Link to={ `/${recipe.type}s/${recipe.id}` }>
+            <img
+              data-testid={ `${index}-horizontal-image` }
+              src={ recipe.image }
+              alt={ recipe.name }
+              width={ 200 }
+              height={ 200 }
+            />
+          </Link>
           { (recipe.type === 'drink') ? (
             <p data-testid={ `${index}-horizontal-top-text` }>
               {`${recipe.alcoholicOrNot}`}
@@ -85,10 +95,12 @@ export default function DoneRecipes() {
               {`${recipe.nationality} - ${recipe.category}`}
             </p>
           )}
-          <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
+          <Link to={ `/${recipe.type}s/${recipe.id}` }>
+            <p data-testid={ `${index}-horizontal-name` }>{recipe.name}</p>
+          </Link>
           <p data-testid={ `${index}-horizontal-done-date` }>{recipe.doneDate}</p>
           <button
-            onClick={ () => shareValue() }
+            onClick={ () => shareValueLink(`/${recipe.type}s/${recipe.id}`) }
           >
             <img
               data-testid={ `${index}-horizontal-share-btn` }
@@ -96,7 +108,7 @@ export default function DoneRecipes() {
               alt=""
             />
           </button>
-          {recipe.type === 'drinks' ? null : (
+          {recipe.type === 'drink' ? null : (
             recipe.tags.map((tag, indice) => (
               <p
                 key={ indice }
