@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 
 export default function Profile() {
@@ -8,7 +8,7 @@ export default function Profile() {
   const logOut = () => {
     localStorage.clear();
     navigate('/');
-  }
+  };
 
   return (
     <>
@@ -19,12 +19,11 @@ export default function Profile() {
       </h3>
       <br />
       <br />
-      
       <button
         data-testid="profile-done-btn"
         onClick={ () => navigate('/done-recipes') }
       >
-          Done Recipes
+        Done Recipes
       </button>
       <br />
       <br />
