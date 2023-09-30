@@ -1,9 +1,17 @@
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Footer from '../Footer/Footer';
 
 export default function Profile() {
-  const localStorageData = localStorage.getItem('user');
-  const parsedData = JSON.parse(localStorageData);
+  const [email, setEmail] = useState<string | null>(null);
+
+  useEffect(() => {
+    const localStorageData = localStorage.getItem('user');
+    const parsedData = JSON.parse(localStorageData);
+    if (parsedData && typeof parsedData === 'object' && 'email' in parsedData) {
+      setEmail(parsedData.email);
+    }
+  }, []);
   const navigate = useNavigate();
   const logOut = () => {
     localStorage.clear();
@@ -15,7 +23,7 @@ export default function Profile() {
       <h3
         data-testid="profile-email"
       >
-        { parsedData.email }
+        { email }
       </h3>
       <br />
       <br />
