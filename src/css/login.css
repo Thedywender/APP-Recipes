@@ -1,0 +1,83 @@
+.main-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    height: 100vh;
+}
+
+.inputs-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* background-color: white; */
+    width: 40%;
+}
+
+.backGround {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: -1;
+}
+
+.form-input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+
+.input-email, .input-password, .button-enter {
+    width: 70vh;
+    height: 2.5vw;
+    margin: 5px;
+    border: 2px solid rgba(65, 25, 127, 0.7);
+    border-radius: 5px;
+}
+
+.input-email::placeholder, .input-password::placeholder, .button-enter::placeholder {
+    text-align: center;
+    color: rgba(65, 25, 127, 0.5);
+}
+
+.button-enter {
+    background-color: #FCC436;
+    color: rgb(255, 255, 255);
+    font-weight: bolder;
+}
+
+.image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40vw;
+    position: relative;
+}
+.logo-img {
+    margin-top: 40px;
+    width: 300px;
+    /* box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6); */
+}
+
+.tomato-img {
+    position: absolute;
+    left: 0;
+    width: 400px;
+    top: 180px;
+}
+
+.text-login {
+    font-family: 'epilogue';
+    font-weight: 500;
+    font-size: 50px;
+    margin-top: 60px;
+    color: #FCC436;
+    text-shadow: 2px 5px 0 #000,  /* Sombra para direita e para baixo */
+                 0px 2px 80px #000, /* Sombra para esquerda e para cima */
+                 1px -1px 0 #000,  /* Sombra para direita e para cima */
+                 -1px 1px 0 #000;  /* Sombra para esquerda e para baixo */
+}
