@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import recipeContext from '../../context/recipeContext';
 import { ApiDataType, SearchFilterType } from '../../types';
+import '../../css/searchBar.css'
 
 const searchFilterInitialValue = {
   filter: '',
@@ -17,7 +18,6 @@ function SearchBar() {
     apiData,
     setApiData,
   } = useContext(recipeContext);
-  // console.log(apiData);
   const navigate = useNavigate();
 
   const [formInfo,
@@ -82,44 +82,52 @@ function SearchBar() {
 
   return (
     <>
+    <div className='searchBar-container'>
       <input
         type="text"
         value={ formInfo.searchInput }
         name="searchInput"
         data-testid="search-input"
         onChange={ handleChange }
+        placeholder='Search'
+        className='input-text'
       />
-      <label>
-        <input
-          type="radio"
-          data-testid="ingredient-search-radio"
-          name="filter"
-          value="ingredient-filter"
-          onChange={ handleChange }
-        />
-        Ingrediente
-      </label>
-      <label>
-        <input
-          type="radio"
-          data-testid="name-search-radio"
-          name="filter"
-          value="name-filter"
-          onChange={ handleChange }
-        />
-        Nome
-      </label>
-      <label>
-        <input
-          type="radio"
-          data-testid="first-letter-search-radio"
-          name="filter"
-          value="first-letter-filter"
-          onChange={ handleChange }
-        />
-        Primeira Letra
-      </label>
-      <button data-testid="exec-search-btn" onClick={ handleFilter }>Search</button>
+      <div className='input-radios'>
+        <label>
+          <input
+            type="radio"
+            data-testid="ingredient-search-radio"
+            name="filter"
+            value="ingredient-filter"
+            onChange={ handleChange }
+          />
+          Ingrediente
+        </label>
+        <label>
+          <input
+            type="radio"
+            data-testid="name-search-radio"
+            name="filter"
+            value="name-filter"
+            onChange={ handleChange }
+          />
+          Nome
+        </label>
+        <label>
+          <input
+            type="radio"
+            data-testid="first-letter-search-radio"
+            name="filter"
+            value="first-letter-filter"
+            onChange={ handleChange }
+          />
+          Primeira Letra
+        </label>
+      </div>
+      <div>
+        <button className='btn-search' data-testid="exec-search-btn" onClick={ handleFilter }>Search</button>
+      </div>
+  </div>
     </>
   );
 }

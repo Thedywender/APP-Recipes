@@ -42,7 +42,6 @@ function Recipes() {
         const data = await fetchRecipesApiMeals();
         setRecipesData(data.meals);
         setMealorDrink('Meal');
-        // console.log(data.meals);
       }
       if (currentPath === '/drinks') {
         const data = await fetchRecipesApiDrinks();

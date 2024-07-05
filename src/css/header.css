@@ -1,0 +1,79 @@
+.main-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 75px;
+    background-color: #fcdc36;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 10px 20px;
+    position: fixed;
+    margin-bottom: 200px;
+}
+
+.profile-icon {
+    position: absolute;
+    right: 35px;
+    width: 40px;
+    top: 50%;
+    transform: translatey(-50%);
+    color: rgb(65, 25, 127);
+
+}
+
+.search-icon {
+    position: absolute;
+    width: 32px;
+    right: 45px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.plate-img, .drink-img {
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    width: 90px;
+
+}
+
+.drink-img {
+    width: 70px;
+}
+
+.page-title {
+    position: absolute;
+    top: 160px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 50px;
+    margin: 0;
+    color: rgb(65, 25, 127);
+}
+
+.logo {
+    position: absolute;
+    left: 30px;
+    width: 65px;
+}
+
+.text-recipes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: rgb(65, 25, 127);
+}
+
+.img-recipes {
+    width: 200px;
+}
+
+.page-rest {
+    padding-top: 250px;
+}

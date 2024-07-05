@@ -46,7 +46,7 @@
 }
 
 .button-enter {
-    background-color: #FCC436;
+    background-color: #fcdc36;
     color: rgb(255, 255, 255);
     font-weight: bolder;
 }
@@ -75,8 +75,8 @@
     font-size: 50px;
     margin-top: 60px;
     color: #FCC436;
-    text-shadow: 2px 5px 0 #000,  /* Sombra para direita e para baixo */
-                 0px 2px 80px #000, /* Sombra para esquerda e para cima */
-                 1px -1px 0 #000,  /* Sombra para direita e para cima */
-                 -1px 1px 0 #000;  /* Sombra para esquerda e para baixo */
+    text-shadow: 2px 5px 0 #000,
+                 0px 2px 80px #000,
+                 1px -1px 0 #000,
+                 -1px 1px 0 #000;  
 }

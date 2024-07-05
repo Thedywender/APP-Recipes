@@ -1,6 +1,6 @@
 import { Outlet, Link } from 'react-router-dom';
-import drinkIcon from '../../images/drinkIcon.svg';
-import mealIcon from '../../images/mealIcon.svg';
+import drinkFooterIcon from '../../images/icone-bebida.png';
+import mealIcon from '../../images/icone-prato.png';
 import './Footer.css';
 
 export default function Footer() {
@@ -8,18 +8,20 @@ export default function Footer() {
     data-testid="meals-bottom-btn"
     src={ mealIcon }
     alt="meals-icon"
+    className='meal-footer'
   />);
 
   const drinkImg = (<img
     data-testid="drinks-bottom-btn"
-    src={ drinkIcon }
+    src={ drinkFooterIcon }
     alt="drinks-icon"
+    className='drink-footer'
   />);
 
   return (
     <>
       <Outlet />
-      <footer data-testid="footer">
+      <footer className='footer' data-testid="footer">
         <Link to="/drinks">{drinkImg}</Link>
         <Link to="/meals">{mealImg}</Link>
       </footer>
