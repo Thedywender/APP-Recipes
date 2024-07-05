@@ -14,7 +14,7 @@ export default function Login() {
       <img className='backGround' src={backGround} alt="img-fundo" />
       <div className='image-container'>
         <img className='logo-img' src={logoRecipes} alt='login' />
-        {/* <img className='tomato-img' src={tomate} alt="tomateImage" /> */}
+        <img className='tomato-img' src={tomate} alt="tomateImage" />
       </div>
       <div className='inputs-container'>
         <h1 className='text-login'>Login</h1>

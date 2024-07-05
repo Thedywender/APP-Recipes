@@ -33,10 +33,11 @@
 
 .input-email, .input-password, .button-enter {
     width: 70vh;
-    height: 2.5vw;
+    height: 3vw;
     margin: 5px;
     border: 2px solid rgba(65, 25, 127, 0.7);
     border-radius: 5px;
+    text-align: center;
 }
 
 .input-email::placeholder, .input-password::placeholder, .button-enter::placeholder {
@@ -55,19 +56,17 @@
     flex-direction: column;
     align-items: center;
     width: 40vw;
-    position: relative;
 }
 .logo-img {
     margin-top: 40px;
     width: 300px;
-    /* box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6); */
 }
 
 .tomato-img {
     position: absolute;
     left: 0;
     width: 400px;
-    top: 180px;
+    top: 380px;
 }
 
 .text-login {
